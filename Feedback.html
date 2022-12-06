@@ -43,19 +43,18 @@
         <table style="padding: 35px;">
             <tr>
                 <td>Name</td>
-                <td><input type="text" id="name" pattern="[A-Za-z]"></td>
-                <td><label for="namevalid" id="namevalid"></label></td>
-            </tr>
+                <td><input type="text" id="name" placeholder="Kenneth Alvares" onkeypress="return isalphaKey(event)" required></td>
+                </tr>
             <tr>
                 <td>Phone Number</td>
-                <td><input type="number"></td>
+                <td><input type="tel" id="phone" name="phone" placeholder="498-348-3872" onkeypress="return isNumberKey(event)" required></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type="email"></td>
+                <td><input type="email" id="email" name="email" placeholder="kenn@email.com" required></td>
             </tr>
             <tr>
-                <td>Birthday</td>
+                <td for="checkout-date">Birthday</td>
                 <td><input type="date"></td>
             </tr>
             <tr>
@@ -81,7 +80,8 @@
                 
             </tr>
             <tr>
-                <td><button type="button" onclick="myFunction()">Submit</button></td>
+                <!-- <td><button type="button" onclick="myFunction()">Submit</button></td> -->
+                <td><button type="button" onclick="validate()">Submit</button></td>
             </tr>
         </table>
 
@@ -149,7 +149,102 @@
   document.getElementById("demo").innerHTML = text;
 }
 
+function isalphaKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode;
+		 const re = /^[A-Za-z]+$/;
 
+		 if (re.test(evt.key)!=true)
+            return false;
+
+         return true;
+      }
+
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode;
+		 const re = /^[A-Za-z]+$/;
+
+		 if (re.test(evt.key))
+            return false;
+
+         return true;
+      }
+
+      function validate() {
+
+//checking for null in name
+testEle = document.getElementById("name").value;
+testEle2 = document.getElementById("name");
+if (testEle == "") {
+    testEle2.style.border = "red solid 3px";
+    alert("Please fill name");
+    return false;
+}
+testEle2.style.border = "green solid 3px";
+
+//validating email
+var testEle = document.getElementById("email").value;
+  var testEle2 = document.getElementById("email");
+var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (re.test(testEle)!= true) {
+    testEle2.style.border = "red solid 3px";
+    alert("email format invalid.");
+    return false;
+  }
+
+testEle2.style.border = "green solid 3px";
+
+
+//validating phone
+testEle = document.getElementById("phone").value;
+testEle2 = document.getElementById("phone");
+var re = /^[6-9][0-9]\d{8}$/;
+if (re.test(testEle)!= true) {
+    testEle2.style.border = "red solid 3px";
+    alert("phone number invalid");
+    return false;
+}
+testEle2.style.border = "green solid 3px";
+
+
+//checking for null in state
+testEle = document.getElementById("state").value;
+testEle2 = document.getElementById("state");
+if (testEle == "") {
+    testEle2.style.border = "red solid 3px";
+    alert("Please fill state");
+    return false;
+}
+testEle2.style.border = "green solid 3px";
+
+
+//checking for null in date
+testEle = document.getElementById("date").value;
+testEle2 = document.getElementById("date");
+if (testEle == "") {
+    testEle2.style.border = "red solid 3px";
+    alert("Please fill date");
+    return false;
+}
+testEle2.style.border = "green solid 3px";
+  
+
+//validating special key
+const pswformat = "special key invalid\n\nminimum of 1 lower case letter [a-z]\nminimum of 1 upper case letter [A-Z]\nminimum of 1 numeric character [0-9]\n1 special character.";
+testEle = document.getElementById("spckey").value;
+testEle2 = document.getElementById("spckey");
+var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+if (re.test(testEle)!= true) {
+    testEle2.style.border = "red solid 3px";
+    alert(pswformat);
+    return false;
+}
+testEle2.style.border = "green solid 3px";
+
+alert("Submited Successfully");
+
+}
 
 
 
